@@ -1,1 +1,0 @@
-const websiteContainer = document.createElement('div');
