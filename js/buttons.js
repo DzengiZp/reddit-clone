@@ -1,4 +1,4 @@
-function renderPostButtons() {
+export function renderPostButtons() {
   const buttonsContainer = document.createElement('div');
   buttonsContainer.id = "posts-buttons-container";
 
@@ -34,4 +34,3 @@ function renderPostButtons() {
   return buttonsContainer;
 }
 
-export { renderPostButtons };

@@ -1,4 +1,4 @@
-function renderNavbar() {
+export function renderNavbar() {
   const navbarContainer = document.createElement('div');
   navbarContainer.className = 'navbar-container';
 
@@ -72,4 +72,3 @@ function renderNavbar() {
   return navbarContainer;
 }
 
-export { renderNavbar };

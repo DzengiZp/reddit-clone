@@ -1,4 +1,4 @@
-function renderPosts() {
+export function renderPosts() {
   const postsContainer = document.createElement('div');
   postsContainer.id = "posts-container";
 
@@ -46,5 +46,3 @@ function renderPosts() {
 
   return postsContainer;
 }
-
-export { renderPosts };
