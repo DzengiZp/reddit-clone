@@ -1,33 +1,39 @@
 #posts-buttons-container {
   display: flex;
-  width: 900px;
-  margin-top: 30px;
-  height: 50px;
+  width: 90%;
+  margin-top: 2%;
+  height: 5%;
+  justify-content: space-between;
 }
 
 .post-buttons-left-side {
   display: flex;
-  width: 900px;
+  flex: 1;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   justify-content: left;
-  margin-left: 30px;
+  margin-left: 3%;
 }
 
 .post-buttons-right-side {
   display: flex;
-  width: 900px;
+  flex: 0;
   align-items: center;
-  gap: 5px;
   justify-content: right;
-  margin-right: 30px;
+  margin-right: 3%;
 }
 
 button {
+  width: max-content;
   border: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 5px;
 }
 
 .search-box {
-  margin-left: 10px;
+  max-width: 25%;
+  margin-left: 7%;
+  width: 100%;
   border: solid 1px #900;
 }
