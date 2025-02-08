@@ -3,13 +3,13 @@ export function renderPosts() {
   postsContainer.id = "posts-container";
 
   const postsHeader = document.createElement('div');
-  postsHeader.id = "posts-rows";
+  postsHeader.id = "posts-header";
 
   const topicTitleContainer = document.createElement('div');
   topicTitleContainer.className = "topic-title-container";
   const topicTitle = document.createElement('p');
   topicTitle.className = "topic-title";
-  topicTitle.innerText = "Topic Title";
+  topicTitle.innerText = "Topic";
 
   topicTitleContainer.appendChild(topicTitle);
 
@@ -35,7 +35,9 @@ export function renderPosts() {
 
   postsContainer.appendChild(postsHeader);
 
-  const postData = ["asdasd", "Post 1", "Post 2", "Post 3", "Post 1", "Post 2", "Post 3", "Post 1", "Post 2"];
+  const postData = ["", "", "", "", "", "", "", "", ""];
+
+  postData[0] = 'Trial of Sekhamas';
 
   postData.forEach(postText => {
     const post = document.createElement('div');

@@ -7,15 +7,25 @@ export function renderNavbar() {
 
   const upperLeft = document.createElement('div');
   upperLeft.className = "upper-left-side";
+  const linkDiv = document.createElement('a');
+  linkDiv.href = "/html.reddit.html";
   const imgDiv = document.createElement('div');
   imgDiv.className = "img-div";
-  imgDiv.innerText = "Picture";
+  const image = document.createElement('img');
+  image.className = "image-logo";
+  image.src = "../assets/icons/reddit.svg";
   const titleDiv = document.createElement('div');
   titleDiv.className = "title-div";
-  titleDiv.innerText = "REDDIT";
+  const titleLogo = document.createElement('a');
+  titleLogo.innerText = 'Reddit';
+  titleLogo.className = "title-logo";
+  titleLogo.href = '/html/reddit.html';
 
   upperLeft.appendChild(imgDiv);
+  upperLeft.appendChild(linkDiv);
+  imgDiv.appendChild(image);
   upperLeft.appendChild(titleDiv);
+  titleDiv.appendChild(titleLogo);
 
   const upperRight = document.createElement('div');
   upperRight.className = "upper-right-side";
@@ -24,7 +34,7 @@ export function renderNavbar() {
   faqDiv.innerText = "FAQ";
   const helpDiv = document.createElement('div');
   helpDiv.className = "help-div";
-  helpDiv.innerText = "HELP";
+  helpDiv.innerText = "Help";
 
   upperRight.appendChild(faqDiv);
   upperRight.appendChild(helpDiv);

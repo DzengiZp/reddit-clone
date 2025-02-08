@@ -1,8 +1,8 @@
 #posts-buttons-container {
   display: flex;
   width: 90%;
-  margin-top: 2%;
-  height: 5%;
+  margin-top: 1.5re;
+  height: 3rem;
   justify-content: space-between;
 }
 
@@ -29,11 +29,17 @@ button {
   white-space: nowrap;
   flex-shrink: 0;
   margin-right: 5px;
+  background-color: red;
+  color: white;
+  cursor: pointer;
 }
 
 .search-box {
   max-width: 25%;
   margin-left: 7%;
   width: 100%;
+  height: 1.3rem;
   border: solid 1px #900;
+  background-color: hsl(0, 0%, 15%);
+  color: white;
 }

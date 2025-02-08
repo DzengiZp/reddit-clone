@@ -1,19 +1,8 @@
-#main-container {
-  display: flex;
-  width: 100%;
-  height: 1000px;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: blueviolet;
-}
-
 .navbar-container {
   display: flex;
   width: 90%;
   height: 90px;
-  background-color: lightpink;
+  background-color: black;
   flex-direction: column;
 }
 
@@ -21,85 +10,143 @@
   display: flex;
   height: 60%;
   width: 100%;
-  background-color: red;
   flex-direction: row;
   border: solid 1px #900;
 }
 
 .upper-left-side {
   display: flex;
-  background-color: yellow;
-  width: 30%;
+  width: 40%;
   flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  cursor: pointer;
 }
 
 .img-div {
-  width: 40%;
+  display: flex;
+  width: 20%;
   height: 100%;
-  background-color: brown;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-logo {
+  width: 100%;
+  height: 85%;
 }
 
 .title-div {
-  width: 60%;
+  width: 20%;
   height: 100%;
-  background-color: lightblue;
+  text-align: center;
+  color: white;
+}
+
+.title-logo {
+  font-size: 2.6rem;
+  text-decoration: none;
+  color: white;
 }
 
 .upper-right-side {
   display: flex;
-  background-color: blue;
   width: 30%;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   margin-left: auto;
+  font-size: 0.8rem;
 }
 
 .help-div {
+  display: flex;
+  color: white;
   width: 100%;
   height: 100%;
   border: solid 1px #900;
-  background-color: lightgreen;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .lower-navbar-container {
   display: flex;
-  background-color: green;
   width: 100%;
   height: 40%;
   border: solid 1px #900;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .lower-left-side {
   display: flex;
-  height: 100%;
   width: 30%;
   flex-direction: row;
+  font-size: 0.84rem;
+  font-weight: bold;
+  background-color: black;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .logged-in-user,
 .change-user,
 .settings {
-  background-color: yellow;
-  height: 100%;
   width: 100%;
-  border: solid 1px #900;
+  text-align: center;
+  border-right: solid 1px;
+  color: white;
+}
+
+.logged-in-user:hover,
+.change-user:hover,
+.settings:hover {
+  cursor: pointer;
+  color: #900;
+  border-color: white;
+}
+
+.change-user,
+.settings {
+  text-decoration: underline;
+
+}
+
+.change-user {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .lower-right-side {
   display: flex;
   width: 20%;
+  height: 100%;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: center;
   margin-left: auto;
+  color: white;
+  font-size: 0.84rem;
+  font-weight: bold;
+  padding-right: 3.5rem;
+  gap: 4.5rem;
 }
 
 .notifications,
 .messages {
-  background-color: brown;
+  display: flex;
   width: 100%;
-  height: 100%;
-  border: solid 1px #900;
+  align-items: center;
+  justify-content: center;
+  text-decoration: underline;
+}
+
+.notifications:hover,
+.messages:hover {
+  color: #900;
 }
