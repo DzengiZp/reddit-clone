@@ -1,8 +1,8 @@
 export async function GetUsersFromDummyJson() {
   let users = localStorage.getItem("users");
 
-  if (!users) {
-    const response = await fetch('https://dummyjson.com/users?limit=5&skip=10&select=id,firstName,age');
+  if (!users || JSON.parse(users).length === 0) {
+    const response = await fetch('https://dummyjson.com/users?limit=10&select=id,firstName,age');
     const data = await response.json();
 
     localStorage.setItem("users", JSON.stringify(data.users));
@@ -12,33 +12,35 @@ export async function GetUsersFromDummyJson() {
   return JSON.parse(users);
 }
 
-export async function GetCommentsFromDummyJson() {
-  let comments = localStorage.getItem("comments");
-
-  if (!comments) {
-    const response = await fetch('https://dummyjson.com/comments?limit=5&skip=10&select=body,postId');
-    const data = await response.json();
-
-    comments = localStorage.setItem("comments", JSON.stringify(data.comments));
-    return data.comments;
-  }
-
-  return JSON.parse(comments);
-}
-
 export async function GetPostsFromDummyJson() {
   let posts = localStorage.getItem("posts");
   let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  if (!posts) {
-    const response = await fetch('https://dummyjson.com/posts?limit=4&skip=10&select=title,reactions,userId,body');
+  if (!posts || JSON.parse(posts).length === 0) {
+    const response = await fetch('https://dummyjson.com/posts?limit=200&select=title,reactions,userId,body');
     const data = await response.json();
 
-    const filteredPosts = data.posts.filter(post => users.some(user => user.id === post.userId));
+    const userIds = users.map(user => user.id);
+    const filteredPosts = data.posts.filter(post => userIds.includes(post.userId)).slice(0, 20);
 
-    localStorage.setItem("posts", JSON.stringify(data.posts));
+    localStorage.setItem("posts", JSON.stringify(filteredPosts));
     return filteredPosts;
   }
 
   return JSON.parse(posts);
+}
+
+
+export async function GetCommentsFromDummyJson() {
+  let comments = localStorage.getItem("comments");
+
+  if (!comments || JSON.parse(comments).length === 0) {
+    const response = await fetch('https://dummyjson.com/comments?limit=5&skip=10&select=body,postId');
+    const data = await response.json();
+
+    localStorage.setItem("comments", JSON.stringify(data.comments));
+    return data.comments;
+  }
+
+  return JSON.parse(comments);
 }

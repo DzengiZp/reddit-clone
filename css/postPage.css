@@ -114,3 +114,57 @@
   background-color: rgb(37, 37, 37);
   border-left: 3px solid red;
 }
+
+.nested-comment {
+  margin-left: 20px;
+  border-left: 4px solid rgb(150, 150, 150);
+  padding-left: 10px;
+}
+
+.reply-button {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.reply-input {
+  width: 70%;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.reply-submit {
+  padding: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.reaction-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  bottom: 31.5rem;
+}
+
+.vote-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.vote-button:hover {
+  color: red;
+}
+
+.vote-button.active {
+  color: red;
+  font-weight: bold;
+}

@@ -98,8 +98,12 @@ function toggleUserSelect() {
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
   const userSelect = document.createElement('select');
-
   userSelect.className = "user-select";
+
+  const defaultOption = document.createElement('option');
+  defaultOption.value = "";
+  defaultOption.innerText = "Select user";
+  userSelect.appendChild(defaultOption);
 
   users.forEach(user => {
     const option = document.createElement('option');
@@ -109,8 +113,12 @@ function toggleUserSelect() {
   });
 
   userSelect.addEventListener('change', () => {
-    loggedInUser.innerHTML = userSelect.value;
-    localStorage.setItem('loggedInUser', userSelect.value);
+    const selectedUser = userSelect.value;
+
+    if (selectedUser) {
+      loggedInUser.innerText = selectedUser;
+      localStorage.setItem('loggedInUser', selectedUser);
+    }
 
     changeUser.style.display = "inline";
     userSelect.remove();
@@ -127,3 +135,5 @@ function toggleUserSelect() {
     }
   });
 }
+
+

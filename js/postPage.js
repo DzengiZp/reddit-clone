@@ -1,6 +1,6 @@
 import { renderNavbar } from "../js/navbar.js";
 import { renderPostButtons } from "../js/buttons.js";
-import { renderPostsContainerForPost } from "../js/allPosts.js";
+import { renderPostsContainerForPost } from "../js/comments.js";
 import { GetUsersFromDummyJson, GetCommentsFromDummyJson, GetPostsFromDummyJson } from '../data/api-fetches.js';
 
 async function renderRedditPage() {
