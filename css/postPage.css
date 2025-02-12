@@ -1,0 +1,116 @@
+#full-main-posts-container {
+  position: relative;
+  display: flex;
+  border: solid 1px rgb(153, 0, 0);
+  width: 110rem;
+  height: 60rem;
+  justify-content: end;
+  flex-direction: column;
+  color: white;
+  background-color: black;
+  padding: 0.5rem;
+}
+
+.full-posts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  width: 108rem;
+  height: 51.5rem;
+  background: rgb(70, 70, 70);
+}
+
+
+.post-header {
+  display: flex;
+  flex-direction: row;
+  margin: 0.2rem;
+  padding: 0.2rem;
+  width: 108rem;
+  height: 4.5rem;
+  background: rgb(37, 37, 37);
+  color: rgb(219, 219, 219);
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0;
+  border: groove 0.4rem rgb(21, 0, 0);
+}
+
+.post-header-topic {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.post-preview {
+  display: flex;
+  flex-direction: row;
+  margin: 0.2rem;
+  margin-left: 0;
+  padding: 0.2rem;
+  width: 108rem;
+  height: 17.2rem;
+  background: rgb(37, 37, 37);
+  color: rgb(219, 219, 219);
+  box-sizing: border-box;
+  justify-content: start;
+  border: groove 0.3rem rgb(21, 0, 0);
+  border-left: none;
+  border-right: none;
+}
+
+.post-comments {
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem;
+  margin-left: 0;
+  padding: 0.2rem;
+  width: 108rem;
+  height: 28.2rem;
+  background: rgb(37, 37, 37);
+  color: rgb(219, 219, 219);
+  box-sizing: border-box;
+  justify-content: start;
+  border: inset 0.3rem rgb(21, 0, 0);
+}
+
+.comment-input-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-input {
+  width: 50%;
+  padding: 5px;
+  border: 1px solid white;
+  background-color: rgb(50, 50, 50);
+  color: white;
+}
+
+.comment-button {
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.comments-list {
+  margin-top: 10px;
+  max-height: 24rem;
+  overflow-y: auto;
+  border-top: 1px solid white;
+  padding-top: 5px;
+}
+
+.comment {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: rgb(37, 37, 37);
+  border-left: 3px solid red;
+}

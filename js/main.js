@@ -1,6 +1,6 @@
-import { renderNavbar } from "./navbar.js";
-import { renderPostButtons } from "./buttons.js";
-import { renderPostsContainer } from "./allPosts.js";
+import { renderNavbar } from "../js/navbar.js";
+import { renderPostButtons } from "../js/buttons.js";
+import { renderPostsContainerForMain } from "../js/allPosts.js";
 import { GetUsersFromDummyJson, GetCommentsFromDummyJson, GetPostsFromDummyJson } from '../data/api-fetches.js';
 
 async function renderRedditPage() {
@@ -14,7 +14,7 @@ async function renderRedditPage() {
 
   mainContainer.appendChild(renderNavbar());
   mainContainer.appendChild(renderPostButtons());
-  mainContainer.appendChild(renderPostsContainer());
+  mainContainer.appendChild(renderPostsContainerForMain());
 
 
   document.body.appendChild(mainContainer);
