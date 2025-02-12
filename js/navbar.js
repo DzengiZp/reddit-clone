@@ -1,4 +1,6 @@
 export function renderNavbar() {
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+
   const navbarContainer = document.createElement('div');
   navbarContainer.className = 'navbar-container';
 
@@ -49,10 +51,18 @@ export function renderNavbar() {
   lowerLeft.className = "lower-left-side";
   const loggedInUser = document.createElement('a');
   loggedInUser.className = "logged-in-user";
-  loggedInUser.innerText = "Dzengiz";
+  loggedInUser.innerText = "Choose User";
+  const savedUser = localStorage.getItem("loggedInUser");
+  if (savedUser) {
+    loggedInUser.innerText = savedUser;
+  }
+
   const changeUser = document.createElement('a');
   changeUser.className = "change-user";
-  changeUser.innerText = "Change User";
+  changeUser.innerHTML = "Change user";
+
+  changeUser.addEventListener('click', toggleUserSelect);
+
   const settings = document.createElement('a');
   settings.className = "settings";
   settings.innerText = "Settings";
@@ -82,3 +92,38 @@ export function renderNavbar() {
   return navbarContainer;
 }
 
+function toggleUserSelect() {
+  const changeUser = document.querySelector(".change-user");
+  const loggedInUser = document.querySelector(".logged-in-user");
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+
+  const userSelect = document.createElement('select');
+
+  userSelect.className = "user-select";
+
+  users.forEach(user => {
+    const option = document.createElement('option');
+    option.value = user.firstName;
+    option.innerText = user.firstName;
+    userSelect.appendChild(option);
+  });
+
+  userSelect.addEventListener('change', () => {
+    loggedInUser.innerHTML = userSelect.value;
+    localStorage.setItem('loggedInUser', userSelect.value);
+
+    changeUser.style.display = "inline";
+    userSelect.remove();
+  });
+
+  changeUser.style.display = 'none';
+  changeUser.parentNode.insertBefore(userSelect, changeUser);
+
+  document.addEventListener("click", function closeDropdown(event) {
+    if (!userSelect.contains(event.target) && event.target !== changeUser) {
+      userSelect.remove();
+      changeUser.style.display = "inline";
+      document.removeEventListener("click", closeDropdown);
+    }
+  });
+}

@@ -85,7 +85,8 @@
 
 .lower-left-side {
   display: flex;
-  width: 30%;
+  width: 30rem;
+  height: 2rem;
   flex-direction: row;
   font-size: 0.84rem;
   font-weight: bold;
@@ -96,26 +97,49 @@
 
 
 .logged-in-user,
-.change-user,
 .settings {
-  width: 100%;
+  width: 10rem;
   text-align: center;
-  border-right: solid 1px;
+  border-right: solid 1px white;
   color: white;
 }
 
+.logged-in-user {
+  margin-right: 1rem;
+}
+
+.settings {
+  border-left: solid 1px white;
+  margin-left: 1rem;
+}
+
+.change-user {
+  text-align: center;
+  width: 10rem;
+  color: white;
+  cursor: pointer;
+  text-decoration: underline;
+
+}
+
+.user-select {
+  text-align: center;
+  width: 9rem;
+  background-color: black;
+  color: white;
+  border: inset 2px #900;
+}
+
+
 .logged-in-user:hover,
-.change-user:hover,
 .settings:hover {
   cursor: pointer;
   color: #900;
   border-color: white;
 }
 
-.change-user,
 .settings {
   text-decoration: underline;
-
 }
 
 .change-user {
