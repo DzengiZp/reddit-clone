@@ -1,5 +1,3 @@
-import { updateEditPostButton } from "./postPage.js";
-
 export function renderNavbar() {
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -12,7 +10,7 @@ export function renderNavbar() {
   const upperLeft = document.createElement('div');
   upperLeft.className = "upper-left-side";
   const linkDiv = document.createElement('a');
-  linkDiv.href = "/html.reddit.html";
+  linkDiv.href = "/html.main-page.html";
   const imgDiv = document.createElement('div');
   imgDiv.className = "img-div";
   const image = document.createElement('img');
@@ -23,7 +21,7 @@ export function renderNavbar() {
   const titleLogo = document.createElement('a');
   titleLogo.innerText = 'Reddit';
   titleLogo.className = "title-logo";
-  titleLogo.href = '/html/reddit.html';
+  titleLogo.href = '/html/main-page.html';
 
   upperLeft.appendChild(imgDiv);
   upperLeft.appendChild(linkDiv);
@@ -121,7 +119,6 @@ function toggleUserSelect() {
       window.location.reload();
     }
   });
-
 
   changeUser.style.display = 'none';
   changeUser.parentNode.insertBefore(userSelect, changeUser);

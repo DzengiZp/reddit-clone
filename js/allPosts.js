@@ -96,7 +96,7 @@ function allPosts(postContainer, users, posts) {
     const titleElement = onePost.querySelector(".post-title");
     titleElement.addEventListener("click", () => {
       localStorage.setItem("selectedPostId", post.id);
-      window.location.href = "../html/postPage.html";
+      window.location.href = "../html/post-page.html";
     });
 
     postContainer.appendChild(onePost);

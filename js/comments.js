@@ -48,7 +48,6 @@ export function renderPostsContainerForPost() {
     <button class="edit-post-button">Edit Post</button>
 `;
 
-
   postContainer.appendChild(reactionContainer);
 
   const upvoteButton = reactionContainer.querySelector(`.upvote[data-id="${selectedPostId}"]`);

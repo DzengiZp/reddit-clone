@@ -3,7 +3,7 @@ import { renderPostButtons } from "../js/buttons.js";
 import { renderPostsContainerForPost } from "../js/comments.js";
 import { GetUsersFromDummyJson, GetCommentsFromDummyJson, GetPostsFromDummyJson } from '../data/api-fetches.js';
 
-if (window.location.pathname.includes("postPage.html")) {
+if (window.location.pathname.includes("post-page.html")) {
   renderRedditPage();
 }
 
@@ -36,7 +36,6 @@ export function updateEditPostButton(loggedInUser) {
   }
 }
 
-
 async function renderRedditPage() {
   if (document.getElementById("main-container")) return;
 
@@ -53,8 +52,6 @@ async function renderRedditPage() {
 
   document.body.appendChild(mainContainer);
 }
-
-
 
 export function openEditPostForm(selectedPost) {
   const existingForm = document.getElementById("edit-post-form");

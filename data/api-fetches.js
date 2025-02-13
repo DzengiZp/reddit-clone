@@ -2,7 +2,7 @@ export async function GetUsersFromDummyJson() {
   let users = localStorage.getItem("users");
 
   if (!users || JSON.parse(users).length === 0) {
-    const response = await fetch('https://dummyjson.com/users?limit=15&select=id,firstName,age');
+    const response = await fetch('https://dummyjson.com/users?limit=0&select=id,firstName,age');
     const data = await response.json();
 
     localStorage.setItem("users", JSON.stringify(data.users));
@@ -35,7 +35,7 @@ export async function GetCommentsFromDummyJson() {
   let comments = localStorage.getItem("comments");
 
   if (!comments || JSON.parse(comments).length === 0) {
-    const response = await fetch('https://dummyjson.com/comments?limit=200&select=body,postId,user');
+    const response = await fetch('https://dummyjson.com/comments?limit=0&select=body,postId,user');
     const data = await response.json();
 
     const formattedComments = data.comments.map(comment => ({
