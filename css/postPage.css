@@ -49,7 +49,7 @@
   flex-direction: row;
   margin: 0.2rem;
   margin-left: 0;
-  padding: 0.2rem;
+  padding: 1rem;
   width: 108rem;
   height: 17.2rem;
   background: rgb(37, 37, 37);
@@ -113,13 +113,15 @@
   padding: 5px;
   background-color: rgb(37, 37, 37);
   border-left: 3px solid red;
+  margin-left: 0rem;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.nested-comment {
-  margin-left: 20px;
-  border-left: 4px solid rgb(150, 150, 150);
-  padding-left: 10px;
+.nested-comments .comment {
+  margin-left: 0.5rem;
+  border-left-width: 5px;
 }
+
 
 .reply-button {
   margin-left: 10px;
@@ -145,11 +147,16 @@
 
 .reaction-container {
   display: flex;
-  align-items: center;
+  justify-content: start;
   position: absolute;
+  height: 4rem;
   margin-top: 1rem;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
   bottom: 31.5rem;
+  width: 105rem;
+  background: rgb(23, 23, 23);
+  border: solid 1px#900;
+  gap: 13.5rem;
 }
 
 .vote-button {
@@ -167,4 +174,9 @@
 .vote-button.active {
   color: red;
   font-weight: bold;
+}
+
+.disabled-edit {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

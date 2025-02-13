@@ -1,3 +1,5 @@
+import { updateEditPostButton } from "./postPage.js";
+
 export function renderNavbar() {
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -118,22 +120,19 @@ function toggleUserSelect() {
     if (selectedUser) {
       loggedInUser.innerText = selectedUser;
       localStorage.setItem('loggedInUser', selectedUser);
+
+      document.dispatchEvent(new CustomEvent("userChanged", { detail: { user: selectedUser } }));
+      updateEditPostButton(selectedUser);
     }
 
     changeUser.style.display = "inline";
     userSelect.remove();
   });
 
+
+
   changeUser.style.display = 'none';
   changeUser.parentNode.insertBefore(userSelect, changeUser);
-
-  document.addEventListener("click", function closeDropdown(event) {
-    if (!userSelect.contains(event.target) && event.target !== changeUser) {
-      userSelect.remove();
-      changeUser.style.display = "inline";
-      document.removeEventListener("click", closeDropdown);
-    }
-  });
 }
 
 

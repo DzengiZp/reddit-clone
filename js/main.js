@@ -15,6 +15,8 @@ async function loadData() {
 }
 
 async function renderRedditPage() {
+  if (document.getElementById("main-posts-container")) return;
+
   await loadData();
 
   const mainContainer = document.createElement("div");
@@ -26,5 +28,6 @@ async function renderRedditPage() {
 
   document.body.appendChild(mainContainer);
 }
+
 
 renderRedditPage();

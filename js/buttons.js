@@ -1,3 +1,5 @@
+import { openCreatePostForm } from "./createNewPost.js";
+
 export function renderPostButtons() {
   const buttonsContainer = document.createElement('div');
   buttonsContainer.id = "posts-buttons-container";
@@ -25,6 +27,7 @@ export function renderPostButtons() {
 
   const createPostButton = document.createElement('button');
   createPostButton.innerText = "Create New Post";
+  createPostButton.addEventListener("click", openCreatePostForm);
 
   rightSide.appendChild(createPostButton);
 
@@ -33,4 +36,3 @@ export function renderPostButtons() {
 
   return buttonsContainer;
 }
-

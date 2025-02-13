@@ -66,7 +66,7 @@ function allPosts(postContainer, users, posts) {
   posts.forEach(post => {
     const user = users.find(user => user.id === post.userId);
     const username = user ? user.firstName : "Unknown";
-    const limitedText = post.body.length > 60 ? post.body.substring(0, 60) + "..." : post.body;
+    const limitedText = post.body.length > 60 ? post.body.substring(0, 60) + `... <span class="see-more-button">See More</span>` : post.body;
 
     const userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
     const userVote = userVotes[`${loggedInUser}-${post.id}`] || null;
@@ -76,12 +76,13 @@ function allPosts(postContainer, users, posts) {
 
     onePost.innerHTML = `
       <p class="user-id">Post creator: <span class="username">${username}</span></p>
-      <p class="post-title" data-id="${post.id}" style="cursor:pointer;">${post.id}. ${post.title}</p>
+      <p class="post-title" data-id="${post.id}" style="cursor:pointer;">${post.title}</p>
       <p class="post-body">${limitedText}</p>
+      <p class="tags" style="font-size: 0.8rem;"><span style="font-weight: bold;">Tags: </span><em>${post.tags}</em></p>
       <div class="reaction-container">
-        <button class="vote-button upvote ${userVote === 'up' ? 'active' : ''}" data-id="${post.id}">⬆</button>
+        <button class="upvote-button upvote ${userVote === 'up' ? 'active' : ''}" data-id="${post.id}">⬆</button>
         <span class="post-reactions-likes" data-id="${post.id}">${post.reactions.likes}</span>
-        <button class="vote-button downvote ${userVote === 'down' ? 'active' : ''}" data-id="${post.id}">⬇</button>
+        <button class="downvote-button downvote ${userVote === 'down' ? 'active' : ''}" data-id="${post.id}">⬇</button>
         <span class="post-reactions-dislikes" data-id="${post.id}">${post.reactions.dislikes}</span>
       </div>
     `;
