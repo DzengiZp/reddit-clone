@@ -39,8 +39,11 @@ export function renderPostsContainerForPost() {
   const userVote = userVotes[`${loggedInUser}-${selectedPostId}`] || null;
 
   reactionContainer.innerHTML = `
-    ${voteButtonsHTML(userVote, selectedPostId, selectedPost)}
-    <span class="post-tags post-tags-content">Tags: ${selectedPost.tags.length > 0 ? selectedPost.tags.join(", ") : "None"}</span>
+    <button class="upvote-button upvote ${userVote === 'up' ? 'active' : ''}" data-id="${selectedPostId}">⬆</button>
+    <span class="post-reactions-likes" data-id="${selectedPostId}">${selectedPost.reactions.likes}</span>
+    <button class="downvote-button downvote ${userVote === 'down' ? 'active' : ''}" data-id="${selectedPostId}">⬇</button>
+    <span class="post-reactions-dislikes" data-id="${selectedPostId}">${selectedPost.reactions.dislikes}</span>
+    <span class="post-tags">Tags: ${selectedPost.tags.length > 0 ? selectedPost.tags.join(", ") : "None"}</span>
     <span class="post-user">Created by: ${postCreator ? postCreator.firstName : "Unknown"}</span>
     <button class="edit-post-button">Edit Post</button>
 `;
@@ -48,18 +51,24 @@ export function renderPostsContainerForPost() {
 
   postContainer.appendChild(reactionContainer);
 
-  const upvoteButton = reactionContainer.querySelector(".upvote");
-  const downvoteButton = reactionContainer.querySelector(".downvote");
+  const upvoteButton = reactionContainer.querySelector(`.upvote[data-id="${selectedPostId}"]`);
+  const downvoteButton = reactionContainer.querySelector(`.downvote[data-id="${selectedPostId}"]`);
 
-  upvoteButton.addEventListener("click", () => handleVote(selectedPostId, "up"));
-  downvoteButton.addEventListener("click", () => handleVote(selectedPostId, "down"));
+
+  if (upvoteButton && downvoteButton) {
+    upvoteButton.addEventListener("click", function () {
+      handleVote(selectedPostId, "up");
+    });
+    downvoteButton.addEventListener("click", function () {
+      handleVote(selectedPostId, "down");
+    });
+  }
 
   const editPostButton = reactionContainer.querySelector(".edit-post-button");
 
   if (editPostButton) {
     editPostButton.addEventListener("click", () => {
       if (loggedInUser !== (postCreator ? postCreator.firstName : "")) {
-        alert("You can only edit your own posts!");
         return;
       }
       openEditPostForm(selectedPost);
@@ -89,6 +98,7 @@ export function renderPostsContainerForPost() {
   const commentButton = document.createElement('button');
   commentButton.innerText = 'Post Comment';
   commentButton.className = 'comment-button';
+  commentButton.addEventListener("click", addNewComment);
 
   commentInputContainer.appendChild(commentInput);
   commentInputContainer.appendChild(commentButton);
@@ -103,115 +113,49 @@ export function renderPostsContainerForPost() {
     commentsList.innerHTML = '';
 
     const allComments = JSON.parse(localStorage.getItem("comments")) || [];
-    const postComments = allComments.filter(comment => comment.postId == selectedPostId && !comment.parentId);
+    const postComments = allComments.filter(comment => comment.postId == selectedPostId);
 
     postComments.forEach(comment => {
-      renderComment(comment, commentsList, allComments);
+      renderComment(comment, commentsList);
     });
-
-    setTimeout(() => {
-      commentsList.scrollTop = commentsList.scrollHeight;
-    }, 100);
   }
 
-  function renderComment(comment, parentElement, allComments) {
+  function renderComment(comment, parentElement) {
+    if (document.querySelector(`[data-id="${comment.id}"]`)) return;
+
     const commentDiv = document.createElement('div');
     commentDiv.className = 'comment';
+    commentDiv.dataset.id = comment.id;
     commentDiv.innerHTML = `
         <p><strong>${comment.username}:</strong> ${comment.text}</p>
-        <button class="reply-button" data-id="${comment.id}">Reply</button>
-        <div class="nested-comments" id="nested-${comment.id}"></div>
     `;
 
     parentElement.appendChild(commentDiv);
-
-    const replyButton = commentDiv.querySelector(".reply-button");
-    replyButton.addEventListener("click", () => showReplyInput(comment.id));
-
-    const nestedContainer = commentDiv.querySelector(`#nested-${comment.id}`);
-    const replies = allComments.filter(c => c.parentId == comment.id);
-
-    replies.forEach(reply => {
-      renderComment(reply, nestedContainer, allComments);
-    });
   }
 
-
-  let activeReplyBox = null;
-
-  function showReplyInput(commentId) {
-    const nestedContainer = document.getElementById(`nested-${commentId}`);
-
-    if (activeReplyBox && activeReplyBox !== nestedContainer) {
-      activeReplyBox.innerHTML = "";
-    }
-
-    if (nestedContainer.querySelector(".reply-input")) {
-      nestedContainer.innerHTML = "";
-      activeReplyBox = null;
-      return;
-    }
-
-    const replyBox = document.createElement("div");
-    replyBox.innerHTML = `
-        <input type="text" class="reply-input" placeholder="Write a reply...">
-        <button class="reply-submit" data-parent="${commentId}">Submit</button>
-    `;
-
-    nestedContainer.appendChild(replyBox);
-    activeReplyBox = nestedContainer;
-
-    const submitButton = replyBox.querySelector(".reply-submit");
-    submitButton.addEventListener("click", () => submitReply(commentId));
-  }
-
-
-
-  function submitReply(parentId) {
-    const nestedContainer = document.getElementById(`nested-${parentId}`);
-    const replyInput = nestedContainer.querySelector(".reply-input");
-
-    const replyText = replyInput.value.trim();
-    if (replyText === "") return;
-
+  function addNewComment() {
     const loggedInUser = localStorage.getItem("loggedInUser");
     if (!loggedInUser) {
-      alert("You need to select a user in the navbar before commenting.");
+      alert("You need to select a user before commenting.");
       return;
     }
 
+    const commentInput = document.querySelector(".comment-input");
+    const commentsList = document.querySelector(".comments-list");
 
-    const newReply = {
-      id: Date.now(),
-      postId: selectedPostId,
-      parentId: parentId,
-      username: loggedInUser,
-      text: replyText
-    };
-
-    const allComments = JSON.parse(localStorage.getItem("comments")) || [];
-    allComments.push(newReply);
-    localStorage.setItem("comments", JSON.stringify(allComments));
-
-    replyInput.value = '';
-    loadComments();
-  }
-
-  commentButton.addEventListener("click", () => {
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    if (!loggedInUser) {
-      alert("You need to select a user in the navbar before commenting.");
-      return;
-    }
+    if (!commentInput || !commentsList) return;
 
     const commentText = commentInput.value.trim();
-    if (commentText === "") return;
+    if (commentText === "") {
+      alert("Comment cannot be empty!");
+      return;
+    }
 
     const newComment = {
       id: Date.now(),
       postId: selectedPostId,
       username: loggedInUser,
-      text: commentText,
+      text: commentText
     };
 
     const allComments = JSON.parse(localStorage.getItem("comments")) || [];
@@ -219,9 +163,9 @@ export function renderPostsContainerForPost() {
     localStorage.setItem("comments", JSON.stringify(allComments));
 
     commentInput.value = '';
-    loadComments();
-  });
 
+    renderComment(newComment, commentsList);
+  }
   loadComments();
 
   return mainPostsContainer;
@@ -230,28 +174,31 @@ export function renderPostsContainerForPost() {
 
 function handleVote(postId, type) {
   const loggedInUser = localStorage.getItem("loggedInUser");
-  if (!loggedInUser) return;
+  if (!loggedInUser) {
+    alert("You need to select a user before voting.");
+    return;
+  }
 
-  const posts = JSON.parse(localStorage.getItem("posts")) || [];
-  const post = posts.find(p => p.id === postId);
+  let posts = JSON.parse(localStorage.getItem("posts")) || [];
+  let post = posts.find(p => p.id == postId);
   if (!post) return;
 
-  const userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
-  const userVoteKey = `${loggedInUser}-${postId}`;
-  const previousVote = userVotes[userVoteKey];
+  let userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
+  let userVoteKey = `${loggedInUser}-${postId}`;
+  let previousVote = userVotes[userVoteKey];
 
   if (previousVote === type) {
     userVotes[userVoteKey] = null;
-    if (type === "up") post.reactions.likes--;
-    else post.reactions.dislikes--;
+    if (type === "up") post.reactions.likes = Math.max(0, post.reactions.likes - 1);
+    if (type === "down") post.reactions.dislikes = Math.max(0, post.reactions.dislikes - 1);
   } else {
     userVotes[userVoteKey] = type;
     if (type === "up") {
       post.reactions.likes++;
-      if (previousVote === "down") post.reactions.dislikes--;
+      if (previousVote === "down") post.reactions.dislikes = Math.max(0, post.reactions.dislikes - 1);
     } else {
       post.reactions.dislikes++;
-      if (previousVote === "up") post.reactions.likes--;
+      if (previousVote === "up") post.reactions.likes = Math.max(0, post.reactions.likes - 1);
     }
   }
 
@@ -262,33 +209,24 @@ function handleVote(postId, type) {
 }
 
 function updatePostReactions(postId) {
-  const posts = JSON.parse(localStorage.getItem("posts")) || [];
-  const post = posts.find(p => p.id === postId);
+  let posts = JSON.parse(localStorage.getItem("posts")) || [];
+  let post = posts.find(p => p.id == postId);
   if (!post) return;
 
-  const likeCount = document.querySelector(`.post-reactions-likes[data-id="${postId}"]`);
-  const dislikeCount = document.querySelector(`.post-reactions-dislikes[data-id="${postId}"]`);
-  const upvoteElement = document.querySelector(`.upvote[data-id="${postId}"]`);
-  const downvoteElement = document.querySelector(`.downvote[data-id="${postId}"]`);
+  let likeCount = document.querySelector(`.post-reactions-likes[data-id="${postId}"]`);
+  let dislikeCount = document.querySelector(`.post-reactions-dislikes[data-id="${postId}"]`);
+  let upvoteButton = document.querySelector(`.upvote-button[data-id="${postId}"]`);
+  let downvoteButton = document.querySelector(`.downvote-button[data-id="${postId}"]`);
 
   if (likeCount && dislikeCount) {
     likeCount.innerText = post.reactions.likes;
     dislikeCount.innerText = post.reactions.dislikes;
 
-    const userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
-    const loggedInUser = localStorage.getItem("loggedInUser");
-    const userVote = userVotes[`${loggedInUser}-${postId}`];
+    let userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
+    let loggedInUser = localStorage.getItem("loggedInUser");
+    let userVote = userVotes[`${loggedInUser}-${postId}`];
 
-    upvoteElement.classList.toggle("active", userVote === "up");
-    downvoteElement.classList.toggle("active", userVote === "down");
+    if (upvoteButton) upvoteButton.classList.toggle("active", userVote === "up");
+    if (downvoteButton) downvoteButton.classList.toggle("active", userVote === "down");
   }
-}
-
-function voteButtonsHTML(userVote, selectedPostId, selectedPost,) {
-  const inner = `<button class="vote-button upvote ${userVote === 'up' ? 'active' : ''}" data-id="${selectedPostId}">⬆</button>
-    <span class="post-reactions-likes" data-id="${selectedPostId}">${selectedPost.reactions.likes}</span>
-    <button class="vote-button downvote ${userVote === 'down' ? 'active' : ''}" data-id="${selectedPostId}">⬇</button>
-    <span class="post-reactions-dislikes" data-id="${selectedPostId}">${selectedPost.reactions.dislikes}</span>`;
-
-  return inner;
 }

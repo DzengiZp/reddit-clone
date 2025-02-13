@@ -65,7 +65,7 @@ export function openEditPostForm(selectedPost) {
 
   const updatedTitle = document.querySelector(".post-header-topic").innerText;
   const updatedContent = document.querySelector(".content-post").innerText;
-  const updatedTags = document.querySelector(".post-tags-content").innerText.replace("Tags: ", "");
+  const updatedTags = document.querySelector(".post-tags").innerText.replace("Tags: ", "");
 
   const overlay = document.createElement("div");
   overlay.className = "overlay";
@@ -98,8 +98,6 @@ export function openEditPostForm(selectedPost) {
 
   document.getElementById("save-edit-post").addEventListener("click", () => savePostChanges(selectedPost.id));
 }
-
-
 
 function savePostChanges(postId) {
   const title = document.getElementById("edit-post-title").value.trim();

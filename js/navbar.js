@@ -96,7 +96,6 @@ export function renderNavbar() {
 
 function toggleUserSelect() {
   const changeUser = document.querySelector(".change-user");
-  const loggedInUser = document.querySelector(".logged-in-user");
   const users = JSON.parse(localStorage.getItem('users')) || [];
 
   const userSelect = document.createElement('select');
@@ -118,17 +117,10 @@ function toggleUserSelect() {
     const selectedUser = userSelect.value;
 
     if (selectedUser) {
-      loggedInUser.innerText = selectedUser;
       localStorage.setItem('loggedInUser', selectedUser);
-
-      document.dispatchEvent(new CustomEvent("userChanged", { detail: { user: selectedUser } }));
-      updateEditPostButton(selectedUser);
+      window.location.reload();
     }
-
-    changeUser.style.display = "inline";
-    userSelect.remove();
   });
-
 
 
   changeUser.style.display = 'none';
