@@ -19,15 +19,16 @@ export function renderPostsContainerForPost() {
   const postHeader = document.createElement('div');
   postHeader.className = "post-header";
   postHeader.innerHTML = `
-    <p class="post-header-topic">${selectedPost ? selectedPost.title : "Post not found"}</p>
+    <p class="post-header-topic"></p>
   `;
+  console.log(selectedPost.title);
 
   postContainer.appendChild(postHeader);
 
   const onePost = document.createElement('div');
   onePost.className = 'post-preview';
   onePost.innerHTML = `
-    <p class="content-post">${selectedPost ? selectedPost.body : "No content available"}</p>
+    <p class="content-post"></p>
   `;
 
   postContainer.appendChild(onePost);
@@ -46,7 +47,7 @@ export function renderPostsContainerForPost() {
     <span class="post-reactions-dislikes" data-id="${selectedPostId}">${selectedPost.reactions.dislikes}</span>
   </div>
     <span class="post-user">Created by: ${postCreator ? postCreator.firstName : "Unknown"}</span>
-    <span class="post-tags">Tags: ${selectedPost.tags.length > 0 ? selectedPost.tags.join(", ") : "None"}</span>
+    <span class="post-tags"></span>
     <button class="edit-post-button">Edit Post</button>
 `;
 
@@ -166,6 +167,16 @@ export function renderPostsContainerForPost() {
     renderComment(newComment, commentsList);
   }
   loadComments();
+
+  const paragraphTitle = document.createElement('p');
+  paragraphTitle.innerText = selectedPost.title;
+  const paragraphBody = document.createElement('p');
+  paragraphBody.innerText = selectedPost.body;
+  const paragraphTags = document.createElement('p');
+  paragraphTags.innerText = selectedPost.tags.length > 0 ? `Tags: ${selectedPost.tags.join(', ')}` : "No tags";
+  mainPostsContainer.querySelector('.post-header-topic').appendChild(paragraphTitle);
+  mainPostsContainer.querySelector('.content-post').appendChild(paragraphBody);
+  mainPostsContainer.querySelector('.post-tags').appendChild(paragraphTags);
 
   return mainPostsContainer;
 }
