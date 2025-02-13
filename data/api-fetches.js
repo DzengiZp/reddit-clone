@@ -1,7 +1,7 @@
 export async function GetUsersFromDummyJson() {
   let users = localStorage.getItem("users");
 
-  if (!users || JSON.parse(users).length === 0) {
+  if (!users) {
     const response = await fetch('https://dummyjson.com/users?limit=0&select=id,firstName,age');
     const data = await response.json();
 
@@ -14,14 +14,12 @@ export async function GetUsersFromDummyJson() {
 
 export async function GetPostsFromDummyJson() {
   let posts = localStorage.getItem("posts");
-  let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  if (!posts || JSON.parse(posts).length === 0) {
+  if (!posts) {
     const response = await fetch('https://dummyjson.com/posts?limit=200&select=title,reactions,userId,body,tags');
     const data = await response.json();
 
-    const userIds = users.map(user => user.id);
-    const filteredPosts = data.posts.filter(post => userIds.includes(post.userId)).slice(0, 20);
+    const filteredPosts = data.posts.slice(0, 20);
 
     localStorage.setItem("posts", JSON.stringify(filteredPosts));
     return filteredPosts;
@@ -30,11 +28,10 @@ export async function GetPostsFromDummyJson() {
   return JSON.parse(posts);
 }
 
-
 export async function GetCommentsFromDummyJson() {
   let comments = localStorage.getItem("comments");
 
-  if (!comments || JSON.parse(comments).length === 0) {
+  if (!comments) {
     const response = await fetch('https://dummyjson.com/comments?limit=0&select=body,postId,user');
     const data = await response.json();
 
@@ -51,4 +48,3 @@ export async function GetCommentsFromDummyJson() {
 
   return JSON.parse(comments);
 }
-
