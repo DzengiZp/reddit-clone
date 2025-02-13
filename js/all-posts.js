@@ -100,11 +100,13 @@ function allPosts(postContainer, users, posts) {
       window.location.href = "../html/post-page.html";
     });
 
-    const seeMoreButton = onePost.querySelector('.see-more-button');
-    seeMoreButton.addEventListener('click', () => {
-      localStorage.setItem("selectedPostId", post.id);
-      window.location.href = "../html/post-page.html";
-    })
+    if (post.body.length > 60) {
+      const seeMoreButton = onePost.querySelector('.see-more-button');
+      seeMoreButton.addEventListener('click', () => {
+        localStorage.setItem("selectedPostId", post.id);
+        window.location.href = "../html/post-page.html";
+      })
+    }
 
     postContainer.appendChild(onePost);
   });
