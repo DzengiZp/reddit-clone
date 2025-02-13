@@ -1,4 +1,4 @@
-import { openEditPostForm } from '../js/postPage.js';
+import { openEditPostForm } from '../js/post-page.js';
 
 export function renderPostsContainerForPost() {
   const mainPostsContainer = document.createElement('div');
@@ -32,26 +32,28 @@ export function renderPostsContainerForPost() {
 
   postContainer.appendChild(onePost);
 
-  const reactionContainer = document.createElement('div');
-  reactionContainer.className = 'reaction-container';
+  const postInformationContainer = document.createElement('div');
+  postInformationContainer.className = 'post-information-container';
 
   const userVotes = JSON.parse(localStorage.getItem("userVotes")) || {};
   const userVote = userVotes[`${loggedInUser}-${selectedPostId}`] || null;
 
-  reactionContainer.innerHTML = `
+  postInformationContainer.innerHTML = `
+  <div class="reaction-container">
     <button class="upvote-button upvote ${userVote === 'up' ? 'active' : ''}" data-id="${selectedPostId}">⬆</button>
     <span class="post-reactions-likes" data-id="${selectedPostId}">${selectedPost.reactions.likes}</span>
     <button class="downvote-button downvote ${userVote === 'down' ? 'active' : ''}" data-id="${selectedPostId}">⬇</button>
     <span class="post-reactions-dislikes" data-id="${selectedPostId}">${selectedPost.reactions.dislikes}</span>
-    <span class="post-tags">Tags: ${selectedPost.tags.length > 0 ? selectedPost.tags.join(", ") : "None"}</span>
+  </div>
     <span class="post-user">Created by: ${postCreator ? postCreator.firstName : "Unknown"}</span>
+    <span class="post-tags">Tags: ${selectedPost.tags.length > 0 ? selectedPost.tags.join(", ") : "None"}</span>
     <button class="edit-post-button">Edit Post</button>
 `;
 
-  postContainer.appendChild(reactionContainer);
+  postContainer.appendChild(postInformationContainer);
 
-  const upvoteButton = reactionContainer.querySelector(`.upvote[data-id="${selectedPostId}"]`);
-  const downvoteButton = reactionContainer.querySelector(`.downvote[data-id="${selectedPostId}"]`);
+  const upvoteButton = postInformationContainer.querySelector(`.upvote[data-id="${selectedPostId}"]`);
+  const downvoteButton = postInformationContainer.querySelector(`.downvote[data-id="${selectedPostId}"]`);
 
 
   if (upvoteButton && downvoteButton) {
@@ -63,7 +65,7 @@ export function renderPostsContainerForPost() {
     });
   }
 
-  const editPostButton = reactionContainer.querySelector(".edit-post-button");
+  const editPostButton = postInformationContainer.querySelector(".edit-post-button");
 
   if (editPostButton) {
     editPostButton.addEventListener("click", () => {
@@ -73,8 +75,6 @@ export function renderPostsContainerForPost() {
       openEditPostForm(selectedPost);
     });
   }
-
-  editPostButton.style.display = "inline-block";
 
   if (loggedInUser !== (postCreator ? postCreator.firstName : "")) {
     editPostButton.classList.add("disabled-edit");

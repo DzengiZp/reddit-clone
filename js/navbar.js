@@ -123,5 +123,3 @@ function toggleUserSelect() {
   changeUser.style.display = 'none';
   changeUser.parentNode.insertBefore(userSelect, changeUser);
 }
-
-

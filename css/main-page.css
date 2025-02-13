@@ -22,10 +22,6 @@
   background: rgb(70, 70, 70);
 }
 
-.one-post>p {
-  line-height: 0.5rem;
-}
-
 .post-header {
   display: flex;
   flex-direction: row;
@@ -45,7 +41,6 @@
 .post-header-title {
   font-weight: bold;
   font-size: 2rem;
-
 }
 
 .one-post {
@@ -135,6 +130,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  color: rgb(215, 215, 215);
 }
 
 .downvote-button.active {

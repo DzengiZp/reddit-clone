@@ -1,7 +1,6 @@
 import { renderNavbar } from "../js/navbar.js";
 import { renderPostButtons } from "../js/buttons.js";
 import { renderPostsContainerForPost } from "../js/comments.js";
-import { GetUsersFromDummyJson, GetCommentsFromDummyJson, GetPostsFromDummyJson } from '../data/api-fetches.js';
 
 if (window.location.pathname.includes("post-page.html")) {
   renderRedditPage();
@@ -10,6 +9,7 @@ if (window.location.pathname.includes("post-page.html")) {
 document.addEventListener("userChanged", (event) => {
   updateEditPostButton(event.detail.user);
 });
+
 
 export function updateEditPostButton(loggedInUser) {
   const selectedPostId = localStorage.getItem("selectedPostId");
@@ -36,15 +36,11 @@ export function updateEditPostButton(loggedInUser) {
   }
 }
 
-async function renderRedditPage() {
-  if (document.getElementById("main-container")) return;
+function renderRedditPage() {
+  document.body.innerHTML = '';
 
   const mainContainer = document.createElement("div");
   mainContainer.id = "main-container";
-
-  const users = await GetUsersFromDummyJson();
-  const posts = await GetPostsFromDummyJson();
-  const comments = await GetCommentsFromDummyJson();
 
   mainContainer.appendChild(renderNavbar());
   mainContainer.appendChild(renderPostButtons());
@@ -123,4 +119,3 @@ function savePostChanges(postId) {
     document.getElementById("edit-post-form").remove();
   }
 }
-

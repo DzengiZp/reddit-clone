@@ -26,7 +26,7 @@ export function openCreatePostForm() {
     </select>
 
     <label for="post-tags">Tags (comma separated):</label>
-    <input type="text" id="post-tags" placeholder="e.g., C#, Databaser, Frontend, Backend">
+    <input type="text" id="post-tags" placeholder="(optional) e.g., C#, Databaser, Frontend, Backend">
 
     <button id="submit-post">Create Post</button>
     <button id="close-form">Cancel</button>
@@ -58,12 +58,13 @@ function createNewPost() {
   const userId = document.getElementById("post-user").value;
   const tags = document.getElementById("post-tags").value.trim().split(",").map(tag => tag.trim());
 
-  if (!title || !content || !userId || !tags) {
+  if (!title || !content || !userId) {
     alert("Please fill in all required fields.");
     return;
   }
 
   const posts = JSON.parse(localStorage.getItem("posts")) || [];
+
   const newPost = {
     id: Date.now(),
     title: title,

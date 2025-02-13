@@ -16,7 +16,7 @@ export async function GetPostsFromDummyJson() {
   let posts = localStorage.getItem("posts");
 
   if (!posts) {
-    const response = await fetch('https://dummyjson.com/posts?limit=200&select=title,reactions,userId,body,tags');
+    const response = await fetch('https://dummyjson.com/posts?limit=0&select=title,reactions,userId,body,tags');
     const data = await response.json();
 
     const filteredPosts = data.posts.slice(0, 20);

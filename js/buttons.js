@@ -1,4 +1,4 @@
-import { openCreatePostForm } from "./createNewPost.js";
+import { openCreatePostForm } from "../js/create-new-post.js";
 
 export function renderPostButtons() {
   const buttonsContainer = document.createElement('div');
@@ -10,10 +10,15 @@ export function renderPostButtons() {
   const seeAllPostsButton = document.createElement('button');
   seeAllPostsButton.innerText = "See All Posts";
 
+  seeAllPostsButton.addEventListener('click', () => {
+    document.body.innerHTML = "";
+    window.location.href = "../html/main-page.html";
+  });
+
   const searchBox = document.createElement('input');
   searchBox.className = "search-box";
   searchBox.type = "text";
-  searchBox.placeholder = "Search here";
+  searchBox.placeholder = "This function has not been implemented yet.";
 
   const searchButton = document.createElement('button');
   searchButton.innerText = "Search";

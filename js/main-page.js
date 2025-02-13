@@ -1,6 +1,6 @@
 import { renderNavbar } from "../js/navbar.js";
 import { renderPostButtons } from "../js/buttons.js";
-import { renderPostsContainerForMain } from "../js/allPosts.js";
+import { renderPostsContainerForMain } from "../js/all-posts.js";
 import { GetUsersFromDummyJson, GetCommentsFromDummyJson, GetPostsFromDummyJson } from '../data/api-fetches.js';
 
 async function loadData() {
@@ -15,7 +15,7 @@ async function loadData() {
 }
 
 async function renderRedditPage() {
-  if (document.getElementById("main-posts-container")) return;
+  document.body.innerHTML = '';
 
   await loadData();
 

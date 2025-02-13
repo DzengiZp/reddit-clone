@@ -74,6 +74,7 @@ function allPosts(postContainer, users, posts) {
     const onePost = document.createElement('div');
     onePost.className = "one-post";
 
+
     onePost.innerHTML = `
       <p class="user-id">Post creator: <span class="username">${username}</span></p>
       <p class="post-title" data-id="${post.id}" style="cursor:pointer;">${post.title}</p>
@@ -111,7 +112,10 @@ function allPosts(postContainer, users, posts) {
 
 function handleVote(postId, type) {
   const loggedInUser = localStorage.getItem("loggedInUser");
-  if (!loggedInUser) return;
+  if (!loggedInUser) {
+    alert("You need to select a user before voting.");
+    return;
+  }
 
   const posts = JSON.parse(localStorage.getItem("posts")) || [];
   const post = posts.find(p => p.id === postId);

@@ -3,7 +3,7 @@
   display: flex;
   border: solid 1px rgb(153, 0, 0);
   width: 110rem;
-  height: 60rem;
+  height: auto;
   justify-content: end;
   flex-direction: column;
   color: white;
@@ -15,8 +15,8 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin: 0.4rem;
+  padding: 0.4rem;
   width: 108rem;
   height: 51.5rem;
   background: rgb(70, 70, 70);
@@ -29,7 +29,7 @@
   margin: 0.2rem;
   padding: 0.2rem;
   width: 108rem;
-  height: 4.5rem;
+  height: auto;
   background: rgb(37, 37, 37);
   color: rgb(219, 219, 219);
   box-sizing: border-box;
@@ -59,6 +59,21 @@
   border: groove 0.3rem rgb(21, 0, 0);
   border-left: none;
   border-right: none;
+}
+
+.post-information-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: absolute;
+  height: auto;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  bottom: 31.5rem;
+  width: 105rem;
+  background: rgb(23, 23, 23);
+  border: solid 1px#900;
+  gap: 13.5rem;
 }
 
 .post-comments {
@@ -117,38 +132,46 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.reaction-container {
-  display: flex;
-  justify-content: start;
-  position: absolute;
-  height: 4rem;
-  margin-top: 1rem;
-  margin-left: 1.5rem;
-  bottom: 31.5rem;
-  width: 105rem;
-  background: rgb(23, 23, 23);
-  border: solid 1px#900;
-  gap: 13.5rem;
+.disabled-edit {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.vote-button {
+.upvote-button,
+.downvote-button {
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: color 0.2s ease-in-out;
+  color: rgb(215, 215, 215);
 }
 
-.vote-button:hover {
+.downvote-button.active {
   color: red;
 }
 
-.vote-button.active {
+.downvote-button:hover {
   color: red;
+  transition: 0.3s ease-in-out;
+}
+
+.upvote-button.active {
+  color: darkgreen;
+}
+
+.upvote-button:hover {
+  color: darkgreen;
+  transition: 0.3s ease-in-out;
+}
+
+.post-user {
   font-weight: bold;
 }
 
-.disabled-edit {
-  opacity: 0.5;
-  cursor: not-allowed;
+.edit-post-button {
+  color: white;
+  background-color: red;
+  border: none;
+  height: 1.5rem;
+  cursor: pointer;
 }
